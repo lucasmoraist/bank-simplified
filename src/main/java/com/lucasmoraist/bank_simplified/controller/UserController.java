@@ -27,4 +27,10 @@ public class UserController {
         return ResponseEntity.ok().body(user);
     }
 
+    @GetMapping("/cpf/{cpf}")
+    public ResponseEntity<User> findByCpf(@PathVariable String cpf) {
+        User user = this.userService.findByCpf(cpf);
+        return ResponseEntity.ok().body(user);
+    }
+
 }
