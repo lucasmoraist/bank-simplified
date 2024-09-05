@@ -1,9 +1,6 @@
 package com.lucasmoraist.bank_simplified.infra.exception;
 
-import com.lucasmoraist.bank_simplified.exceptions.AmountException;
-import com.lucasmoraist.bank_simplified.exceptions.ExceptionDTO;
-import com.lucasmoraist.bank_simplified.exceptions.ResourceNotFound;
-import com.lucasmoraist.bank_simplified.exceptions.TransactionRoles;
+import com.lucasmoraist.bank_simplified.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -26,6 +23,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFound.class)
     protected ResponseEntity<ExceptionDTO> handleResourceNotFound(ResourceNotFound ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionDTO(ex.getMessage(), HttpStatus.NOT_FOUND));
+    }
+
+    @ExceptionHandler(NotificationException.class)
+    protected ResponseEntity<ExceptionDTO> handleNotificationException(NotificationException ex) {
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDTO(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
     }
 
 }
