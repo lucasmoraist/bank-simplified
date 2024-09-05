@@ -1,6 +1,5 @@
 package com.lucasmoraist.bank_simplified.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -18,7 +17,8 @@ import java.math.BigDecimal;
 @Builder
 public class Wallet {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Min(0)
@@ -26,7 +26,6 @@ public class Wallet {
     private BigDecimal balance = BigDecimal.ZERO;
 
     @OneToOne(mappedBy = "wallet")
-    @JsonManagedReference
     private User user;
 
     public void plusBalance(BigDecimal value) {
