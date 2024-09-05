@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/v2/wallet")
-@Tag(name = "V2")
+@Tag(name = "V1")
 @Slf4j
 public class DepositController {
 

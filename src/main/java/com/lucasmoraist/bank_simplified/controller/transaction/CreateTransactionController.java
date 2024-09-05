@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/v1/transactions")
-@Tag(name = "V1")
+@Tag(name = "V2")
 @Slf4j
 public class CreateTransactionController {
 
