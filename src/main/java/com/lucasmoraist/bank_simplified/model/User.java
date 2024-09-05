@@ -1,11 +1,14 @@
 package com.lucasmoraist.bank_simplified.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.lucasmoraist.bank_simplified.enums.UserType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -18,6 +21,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Entity(name = "t_user")
 @Table(name = "t_user")
+@Builder
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +36,7 @@ public class User {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Min(8)
+    @Size(min = 8)
     @Column(nullable = false)
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).+$", message = "Password must have at least one uppercase letter, one lowercase letter and one number")
     private String password;
@@ -42,6 +46,7 @@ public class User {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "wallet_id", referencedColumnName = "id")
+    @JsonBackReference
     private Wallet wallet;
 
     @CreationTimestamp
