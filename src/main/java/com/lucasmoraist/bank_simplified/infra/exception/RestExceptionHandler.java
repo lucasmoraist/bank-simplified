@@ -17,6 +17,11 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(TransactionRoles.class)
     protected ResponseEntity<ExceptionDTO> handleTransactionRoles(TransactionRoles ex) {
+        return ResponseEntity.badRequest().body(new ExceptionDTO(ex.getMessage(), HttpStatus.FORBIDDEN));
+    }
+
+    @ExceptionHandler(AuthorizationClientException.class)
+    protected ResponseEntity<ExceptionDTO> handleAuthorizationClientException(AuthorizationClientException ex) {
         return ResponseEntity.badRequest().body(new ExceptionDTO(ex.getMessage(), HttpStatus.BAD_REQUEST));
     }
 
@@ -28,6 +33,21 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(NotificationException.class)
     protected ResponseEntity<ExceptionDTO> handleNotificationException(NotificationException ex) {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ExceptionDTO(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR));
+    }
+
+    @ExceptionHandler(InvalidEmailException.class)
+    protected ResponseEntity<ExceptionDTO> handleInvalidEmailException(InvalidEmailException ex) {
+        return ResponseEntity.badRequest().body(new ExceptionDTO(ex.getMessage(), HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(InvalidPasswordException.class)
+    protected ResponseEntity<ExceptionDTO> handleInvalidPasswordException(InvalidPasswordException ex) {
+        return ResponseEntity.badRequest().body(new ExceptionDTO(ex.getMessage(), HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(CpfDuplicateException.class)
+    protected ResponseEntity<ExceptionDTO> handleCpfDuplicateException(CpfDuplicateException ex) {
+        return ResponseEntity.badRequest().body(new ExceptionDTO(ex.getMessage(), HttpStatus.BAD_REQUEST));
     }
 
 }
