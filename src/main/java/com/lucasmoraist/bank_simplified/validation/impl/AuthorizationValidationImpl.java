@@ -1,5 +1,6 @@
 package com.lucasmoraist.bank_simplified.validation.impl;
 
+import com.lucasmoraist.bank_simplified.exceptions.AuthorizationClientException;
 import com.lucasmoraist.bank_simplified.exceptions.TransactionRoles;
 import com.lucasmoraist.bank_simplified.model.AuthorizationResponse;
 import com.lucasmoraist.bank_simplified.repository.AuthorizationClient;
@@ -17,7 +18,7 @@ public class AuthorizationValidationImpl implements AuthorizationValidation {
     public void validateAuthorization() {
         AuthorizationResponse authorizationResponse = this.authorizationClient.authorize();
         if (authorizationResponse.getStatus().equals("fail") || !authorizationResponse.getData().isAuthorization()) {
-            throw new TransactionRoles("Transaction not authorized");
+            throw new AuthorizationClientException("Transaction not authorized");
         }
     }
 
