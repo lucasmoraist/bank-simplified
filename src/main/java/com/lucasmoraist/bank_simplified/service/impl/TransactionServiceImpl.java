@@ -1,11 +1,14 @@
 package com.lucasmoraist.bank_simplified.service.impl;
 
+import com.lucasmoraist.bank_simplified.dto.NotificationDTO;
 import com.lucasmoraist.bank_simplified.dto.TransferDTO;
 import com.lucasmoraist.bank_simplified.enums.StatusTransaction;
+import com.lucasmoraist.bank_simplified.exceptions.NotificationException;
 import com.lucasmoraist.bank_simplified.model.Transaction;
 import com.lucasmoraist.bank_simplified.model.User;
 import com.lucasmoraist.bank_simplified.model.Wallet;
 import com.lucasmoraist.bank_simplified.repository.TransactionRepository;
+import com.lucasmoraist.bank_simplified.service.NotificationService;
 import com.lucasmoraist.bank_simplified.service.TransactionService;
 import com.lucasmoraist.bank_simplified.validation.AuthorizationValidation;
 import com.lucasmoraist.bank_simplified.validation.PayeeValidation;
@@ -27,6 +30,7 @@ public class TransactionServiceImpl implements TransactionService {
     private final PayeeValidation payeeValidation;
     private final PayerValidation payerValidation;
     private final TransferValidation transferValidation;
+    private final NotificationService notificationService;
 
     @Override
     @Transactional
@@ -44,6 +48,22 @@ public class TransactionServiceImpl implements TransactionService {
         StatusTransaction status = success ? StatusTransaction.COMPLETED : StatusTransaction.FAILED;
 
         this.saveTransaction(payer, payee, dto.amount(), status);
+
+        NotificationDTO notificationDTO = new NotificationDTO(
+                payee.getEmail(), // Ou telefone, dependendo do destino da notificação
+                dto.amount(),
+                payer.getFullName()
+        );
+
+        this.sendNotification(success, notificationDTO);
+    }
+
+    private void sendNotification(boolean isSuccess, NotificationDTO dto) {
+        if (isSuccess) {
+            boolean notificationSuccess = this.notificationService.sendNotification(dto);
+
+            if (!notificationSuccess) throw new NotificationException();
+        }
     }
 
     private void saveTransaction(User payer, User payee, BigDecimal amount, StatusTransaction status) {
