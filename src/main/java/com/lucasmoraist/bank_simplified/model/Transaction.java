@@ -3,6 +3,7 @@ package com.lucasmoraist.bank_simplified.model;
 import com.lucasmoraist.bank_simplified.enums.StatusTransaction;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity(name = "t_transaction")
 @Table(name = "t_transaction")
+@Builder
 public class Transaction {
 
     @Id @GeneratedValue(strategy = GenerationType.UUID)
