@@ -9,6 +9,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * Represents a wallet of a user.
+ *
+ * @author lucasmoraist
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

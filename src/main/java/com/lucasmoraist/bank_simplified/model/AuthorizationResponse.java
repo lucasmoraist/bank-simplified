@@ -5,6 +5,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+/**
+ * Represents the response of the authorization endpoint.
+ *
+ * @author lucasmoraist
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

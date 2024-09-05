@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/v1/user")
 @Tag(name = "V1")
+@Slf4j
 public class FindByCpfController {
 
     @Autowired
@@ -37,7 +39,9 @@ public class FindByCpfController {
     })
     @GetMapping("/cpf/{cpf}")
     public ResponseEntity<User> findByCpf(@PathVariable String cpf) {
+        log.info("Finding user by CPF: {}", cpf);
         User user = this.service.findByCpf(cpf);
+        log.info("User found: {}", user);
         return ResponseEntity.ok().body(user);
     }
 

@@ -16,6 +16,11 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
+/**
+ * Represents a user of the system.
+ *
+ * @author lucasmoraist
+ */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

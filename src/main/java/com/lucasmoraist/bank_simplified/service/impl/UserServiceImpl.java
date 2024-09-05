@@ -13,17 +13,30 @@ import com.lucasmoraist.bank_simplified.service.WalletService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+/**
+ * Service responsible for managing user operations.
+ *
+ * @author lucasmoraist
+ */
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
     private final WalletService walletService;
 
+    /**
+     * Saves a new user.
+     * @param dto DTO containing the user data.
+     * @return The saved user.
+     */
     @Override
     public User save(UserDTO dto) {
+        log.info("Attempting to save user with CPF: {}", dto.cpf());
         try {
             Wallet wallet = new Wallet();
             User user = User.builder()
@@ -36,22 +49,25 @@ public class UserServiceImpl implements UserService {
                     .build();
 
             this.repository.save(user);
+            log.info("User saved successfully with ID: {}", user.getId());
 
             return user;
 
         } catch (DataIntegrityViolationException e) {
+            log.error("Data integrity violation while saving user with CPF: {}", dto.cpf(), e);
             throw new CpfDuplicateException();
 
         } catch (ConstraintViolationException e) {
+            log.error("Constraint violation while saving user with CPF: {}", dto.cpf(), e);
 
             for (ConstraintViolation<?> violation : e.getConstraintViolations()) {
                 String fieldName = violation.getPropertyPath().toString();
 
                 if (fieldName.equals("email")) {
-                    // Email
+                    log.warn("Invalid email format for user with CPF: {}", dto.cpf());
                     throw new InvalidEmailException();
                 } else if (fieldName.equals("password")) {
-                    // Password
+                    log.warn("Invalid password for user with CPF: {}", dto.cpf());
                     throw new InvalidPasswordException();
                 }
             }
@@ -59,15 +75,33 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    /**
+     * Finds a user by its ID.
+     * @param id The user ID.
+     * @return The user found.
+     */
     @Override
     public User findById(Long id) {
+        log.info("Fetching user with ID: {}", id);
         return this.repository.findById(id)
-                .orElseThrow(() -> new ResourceNotFound("User not found"));
+                .orElseThrow(() -> {
+                    log.error("User with ID {} not found", id);
+                    return new ResourceNotFound("User not found");
+                });
     }
 
+    /**
+     * Finds a user by its CPF.
+     * @param cpf The user CPF.
+     * @return The user found.
+     */
     @Override
     public User findByCpf(String cpf) {
+        log.info("Fetching user with CPF: {}", cpf);
         return this.repository.findByCpf(cpf)
-                .orElseThrow(() -> new ResourceNotFound("User not found"));
+                .orElseThrow(() -> {
+                    log.error("User with CPF {} not found", cpf);
+                    return new ResourceNotFound("User not found");
+                });
     }
 }

@@ -69,6 +69,7 @@ public class CreateTransactionController {
     @PostMapping
     public ResponseEntity<Void> createTransaction(@Valid @RequestBody TransferDTO dto) {
         this.service.createTransaction(dto);
+        log.info("Transaction successfully created: {}", dto);
         return ResponseEntity.ok().build();
     }
 

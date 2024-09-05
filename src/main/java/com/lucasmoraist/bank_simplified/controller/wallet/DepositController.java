@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/v2/wallet")
 @Tag(name = "V2")
+@Slf4j
 public class DepositController {
 
     @Autowired
@@ -35,7 +37,10 @@ public class DepositController {
     })
     @PatchMapping("/{id}/deposit")
     public ResponseEntity<Wallet> deposit(@PathVariable Long id, @RequestBody DepositDTO dto) {
+        log.info("Depositing into wallet with id: {}", id);
+        log.info("Amount to deposit: {}", dto.amount());
         Wallet wallet = this.service.deposit(id, dto);
+        log.info("Deposit successful: {}", wallet);
         return ResponseEntity.ok(wallet);
     }
 
