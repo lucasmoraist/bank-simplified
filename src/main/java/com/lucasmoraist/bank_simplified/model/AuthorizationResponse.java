@@ -1,9 +1,6 @@
 package com.lucasmoraist.bank_simplified.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * Represents the response of the authorization endpoint.
@@ -17,10 +14,11 @@ public class AuthorizationResponse {
     private String status;
     private AuthorizationData data;
 
-    @Getter
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class AuthorizationData {
         private boolean authorization;
-
     }
 
 }
