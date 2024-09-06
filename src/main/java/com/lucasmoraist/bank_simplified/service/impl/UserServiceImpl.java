@@ -9,7 +9,6 @@ import com.lucasmoraist.bank_simplified.model.User;
 import com.lucasmoraist.bank_simplified.model.Wallet;
 import com.lucasmoraist.bank_simplified.repository.UserRepository;
 import com.lucasmoraist.bank_simplified.service.UserService;
-import com.lucasmoraist.bank_simplified.service.WalletService;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,6 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class UserServiceImpl implements UserService {
     private final UserRepository repository;
-    private final WalletService walletService;
 
     /**
      * Saves a new user.
