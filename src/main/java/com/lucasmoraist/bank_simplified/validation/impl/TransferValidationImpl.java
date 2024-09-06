@@ -28,11 +28,21 @@ public class TransferValidationImpl implements TransferValidation {
         log.info("Processing transfer of amount: {} from payer wallet ID: {} to payee wallet ID: {}",
                 amount, payerWallet.getId(), payeeWallet.getId());
 
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) <= 0) {
+            log.warn("Transfer failed. Invalid amount: {}", amount);
+            return false;
+        }
+
         BigDecimal initialPayerBalance = payerWallet.getBalance();
         BigDecimal initialPayeeBalance = payeeWallet.getBalance();
 
         log.debug("Initial balance of payer wallet ID {}: {}", payerWallet.getId(), initialPayerBalance);
         log.debug("Initial balance of payee wallet ID {}: {}", payeeWallet.getId(), initialPayeeBalance);
+
+        if (initialPayerBalance.compareTo(amount) < 0) {
+            log.warn("Transfer failed. Insufficient balance in payer wallet ID {}", payerWallet.getId());
+            return false;
+        }
 
         payerWallet.minusBalance(amount);
         payeeWallet.plusBalance(amount);
