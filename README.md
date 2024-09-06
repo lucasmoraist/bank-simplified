@@ -7,9 +7,8 @@
 
 ## Descrição
 
-Este projeto é um sistema de transferência de dinheiro, inspirado no PicPay, que permite aos usuários transferirem
-valores entre carteiras. Ele implementa funcionalidades de autenticação, autorização de transações e notificação. A
-aplicação está equipada com autenticação JWT e comunicação com um serviço externo de autorização de pagamento.
+Este projeto é um sistema de transferência de dinheiro, que permite aos usuários transferirem
+valores entre carteiras. Ele implementa funcionalidades de autenticação, autorização de transações e notificação.
 
 ## Funcionalidades
 
@@ -54,4 +53,26 @@ aplicação está equipada com autenticação JWT e comunicação com um serviç
 - Docker
 
 ### Etapas
-1. 
+1. Clone o repositório na sua máquina
+   ````bash
+   git clone https://github.com/lucasmoraist/bank-simplified.git
+   ````
+2. Acesse o diretório do projeto
+   ````bash
+   cd bank-simplified
+   ````
+3. Suba o container do banco de dados com Docker Compose
+   ````bash
+   docker-compose up -d
+   ````
+## Instruções de Uso
+- Utilize uma ferramenta como Postman ou Insomnia para testar os endpoints da API.
+- Importe o arquivo de requisições disponível no diretório ./collection para facilitar os testes.
+- É possível acessar a documentação da API na máquina local através do link http://localhost:8080/ e testar as requisições diretamente no Swagger.
+
+## Contribuições
+Contribuições são sempre bem-vindas! Sinta-se à vontade para enviar pull requests com melhorias ou novos recursos.
+
+## Contatos
+<a href="mailto:seu-email@gmail.com"> <img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"> </a>
+<a href="https://www.linkedin.com/in/seu-linkedin/" target="_blank"> <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"> </a>
