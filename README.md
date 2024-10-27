@@ -70,9 +70,6 @@ valores entre carteiras. Ele implementa funcionalidades de autenticação, autor
 - Importe o arquivo de requisições disponível no diretório ./collection para facilitar os testes.
 - É possível acessar a documentação da API na máquina local através do link http://localhost:8080/ e testar as requisições diretamente no Swagger.
 
-## Contribuições
-Contribuições são sempre bem-vindas! Sinta-se à vontade para enviar pull requests com melhorias ou novos recursos.
-
 ## Contatos
 <a href="mailto:seu-email@gmail.com"> <img src="https://img.shields.io/badge/-Gmail-%23333?style=for-the-badge&logo=gmail&logoColor=white" alt="Gmail"> </a>
 <a href="https://www.linkedin.com/in/seu-linkedin/" target="_blank"> <img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"> </a>
